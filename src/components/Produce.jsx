@@ -10,12 +10,7 @@ const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 function Produce() {
   const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [account, setAccount] = useState(null);
-  const [contract, setContract] = useState(null);
-  const [minted, setMinted] = useState(false);
   const [action, setAction] = useState(null);
 
   useEffect(() => {
@@ -47,12 +42,12 @@ function Produce() {
   };
 
   return (
-    <div>
+    <div className="master-container">
       {balance > 0 ? (
         Array(balance)
           .fill(0)
           .map((_, i) => (
-            <div>
+            <div key={i} className="produce-container">
               <ProduceCard produceIndex={i} />
             </div>
           ))
@@ -65,11 +60,17 @@ function Produce() {
 
 export default Produce;
 
-function ProduceCard(produceIndex) {
+function ProduceCard({ produceIndex }) {
   const [showModal, setShowModal] = useState(false);
-  const [produce, setProduce]
+  const [produce, setProduce] = useState({});
+  const [produceId, setProduceId] = useState(0);
+  const [matched, setMatched] = useState({});
 
-  const getNumOfProduce = async () => {
+  useEffect(() => {
+    getProduce();
+  }, []);
+
+  const getProduce = async () => {
     if (!window.ethereum) return alert("Please install MetaMask");
 
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -81,20 +82,32 @@ function ProduceCard(produceIndex) {
     );
     try {
       const produceID = await contract.produceIds(produceIndex);
-      console.log("ID of produce:", Number(numProd));
-      const produceInfo = await contract.produces(produceID);
-      console.log("Produce: ", produce);
+      console.log("ID of produce:", Number(produceID));
+      setProduceId(Number(produceID));
+      const raw = await contract.produces(Number(produceID));
+      console.log("Produce: ", raw);
+      const newProduce = {
+        produceCode: Number(raw[0]),
+        quantity: Number(raw[1]),
+        timestamp: Number(raw[2]),
+        farmer: raw[3],
+        endUser: raw[4],
+        currentHolder: Number(raw[5]),
+        status: Number(raw[6]),
+        qualityRating: Number(raw[7]),
+      };
+      setProduce(newProduce);
+      const match = allProduce.find((p) => p.id === newProduce.produceCode);
+      console.log("match: ", match);
+      setMatched(match);
     } catch (error) {
-      if (error.message.includes("Invalid quality rating")) {
-        setAction("Invalid quality rating");
-      }
-      setAction("Something went wrong");
-      console.error("Error:", error);
+      console.log("Something went wrong");
+      console.error("Produce Error:", error);
     }
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px" }} className="card-modal">
       <Card
         className="prod"
         style={{
@@ -111,22 +124,20 @@ function ProduceCard(produceIndex) {
             marginBottom: "10px",
           }}
         >
-          {allProduce[0].icon}
+          {matched.icon}
         </div>
         <Card.Body style={{ textAlign: "left" }}>
           <Card.Title style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-            {allProduce[0].label}
+            {matched.label}
           </Card.Title>
           <Card.Text style={{ fontSize: "0.9rem", color: "#555" }}>
-            <strong>Product ID:</strong> {allProduce[0].id}
+            <strong>Produce ID:</strong> {produceId}
             <br />
-            <strong>Code:</strong> {allProduce[0].id.toString().slice(0, 3)}-
-            {allProduce[0].id.toString().slice(3)}
+            <strong>Code:</strong> {produce.produceCode}
             <br />
-            <strong>Quantity:</strong> {Math.floor(Math.random() * 100) + 1} kg
+            <strong>Quantity:</strong> {produce.quantity} units
             <br />
-            <strong>Quality Rating:</strong> {Math.floor(Math.random() * 5) + 1}{" "}
-            ★
+            <strong>Quality Rating:</strong> {produce.qualityRating} ★
           </Card.Text>
           <Button
             variant="info"

@@ -145,3 +145,10 @@
 .motion-icon {
   font-size: 128px;
 }
+
+.master-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  padding: 1vw;
+}
