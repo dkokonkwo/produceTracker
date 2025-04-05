@@ -5,6 +5,7 @@ import { allProduce } from "./AllProduce";
 import { getNumber } from "ethers";
 import "../App.css";
 import ProduceTracker from "../artifacts/contracts/ProduceTracker.sol/ProduceTracker.json";
+import TrackingDetails from "./TrackingDetails";
 
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -92,7 +93,7 @@ function ProduceCard({ produceIndex }) {
         timestamp: Number(raw[2]),
         farmer: raw[3],
         endUser: raw[4],
-        currentHolder: Number(raw[5]),
+        currentHolder: raw[5],
         status: Number(raw[6]),
         qualityRating: Number(raw[7]),
       };
@@ -149,15 +150,19 @@ function ProduceCard({ produceIndex }) {
         </Card.Body>
       </Card>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        className="modal-extra"
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Thank You</Modal.Title>
+          <Modal.Title>TRACKING ID: {produceId}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Thank you for supporting sustainable agriculture!
+          <TrackingDetails produce={produce} produceId={produceId} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="info" onClick={() => setShowModal(false)}>
             Close
           </Button>
         </Modal.Footer>

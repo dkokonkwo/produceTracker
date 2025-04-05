@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  background-color: #edeff2;
 }
 
 /* .logo {
@@ -56,94 +57,8 @@
 }
 
 .tabby {
-  background-color: "#EDEFF2" !important;
+  background-color: #edeff2 !important;
   min-height: 100vh;
-}
-
-/* HOME STYLING */
-.motion-container {
-  width: 480px;
-  height: 60vh;
-  max-height: 360px;
-  border-radius: 10px;
-  background: white;
-  overflow: hidden;
-  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
-    0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
-    0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075),
-    0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
-    0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
-  display: flex;
-  flex-direction: column;
-}
-
-.motion-nav {
-  background: #fdfdfd;
-  padding: 5px 5px 0;
-  border-radius: 10px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid #eeeeee;
-  height: 44px;
-}
-
-.motion-tabsStyles {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.motion-tabsContainer {
-  display: flex;
-  width: 100%;
-  list-style: none; /* Inherited from tabsStyles */
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.motion-tab {
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  width: 100%;
-  padding: 10px 15px;
-  position: relative;
-  background: white;
-  cursor: pointer;
-  height: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-  user-select: none;
-  color: #0f1115;
-  font-weight: 500; /* Inherited from tabsStyles */
-  font-size: 14px;
-}
-
-.motion-underline {
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-}
-
-.motion-iconContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
-
-.motion-icon {
-  font-size: 128px;
 }
 
 .master-container {
@@ -151,4 +66,84 @@
   flex-wrap: wrap;
   gap: 1vw;
   padding: 1vw;
+}
+
+.modal-title {
+  font-family: "Overpass Mono", monospace;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: none !important;
+}
+
+.circle {
+  height: 3.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.done {
+  background-color: #0dcaf0;
+}
+
+.not {
+  background-color: #555555;
+}
+
+.line {
+  height: 0.3rem;
+  width: 6rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tracking-chart {
+  margin-block: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ordered {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ordered h5 {
+  font-family: "Overpass Mono", monospace;
+  margin: 0;
+  font-size: medium;
+}
+
+.tracking-info {
+  font-family: "Overpass Mono", monospace;
+}
+
+.modal-dialog {
+  width: 80vw !important;
+}
+
+.modal-footer Button,
+.tracking-details Button {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  color: #edeff2;
+}
+
+.status-update {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.update-control {
+  width: 150px !important;
+  font-family: "Manrope", sans-serif;
 }
